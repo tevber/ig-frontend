@@ -1,14 +1,13 @@
 "use client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { useUser } from "../../../../../instagram/instagram-frontend/src/providers/AuthProvider";
 import { useRouter } from "next/navigation";
 import { ChangeEvent, useState } from "react";
 import { IG_LOGO } from "@/icons/ig-logo";
 import { toast } from "sonner";
 import { useEffect } from "react";
-import { decodedTokenType } from "../../../../../instagram/instagram-frontend/src/providers/AuthProvider";
 import { jwtDecode } from "jwt-decode";
+import { decodedTokenType, useUser } from "@/providers/AuthProvider";
 
 type UserType = {
   email: string;

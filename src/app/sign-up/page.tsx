@@ -5,9 +5,8 @@ import { ChangeEvent, useState } from "react";
 import { Toaster } from "sonner";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
-import { decodedTokenType } from "../../../../../instagram/instagram-frontend/src/providers/AuthProvider";
 import { jwtDecode } from "jwt-decode";
-import { useUser } from "../../../../../instagram/instagram-frontend/src/providers/AuthProvider";
+import { decodedTokenType, useUser } from "@/providers/AuthProvider";
 
 type UserType = {
   userName: string;
