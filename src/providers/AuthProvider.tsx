@@ -1,5 +1,7 @@
 "use client";
 
+import { jwtDecode } from "jwt-decode";
+import { useRouter } from "next/navigation";
 import {
   createContext,
   PropsWithChildren,
@@ -11,47 +13,48 @@ import {
 } from "react";
 
 type User = {
+  _id: string;
   email: string;
-  userName: string;
   password: string;
+  userName: string;
   bio: string | null;
   profilePic: string | null;
 };
 
-type ContextType = {
+type AuthContext = {
   user: User | null;
-  setUser: Dispatch<SetStateAction<null | User>>;
-  login: (password: string, email: string) => Promise<void>;
+  setUser: Dispatch<SetStateAction<User | null>>;
+  token: string | null;
+  setToken: Dispatch<SetStateAction<string | null>>;
 };
 
-export const AuthContext = createContext<ContextType | null>(null);
+export type decodedTokenType = {
+  data: User;
+};
+
+export const AuthContext = createContext<AuthContext | null>(null);
 
 export const AuthProvider = ({ children }: PropsWithChildren) => {
+  const { push } = useRouter();
   const [user, setUser] = useState<User | null>(null);
+  const [token, setToken] = useState<string | null>(null);
 
   useEffect(() => {
-    const userData = localStorage.getItem("user");
-    if (userData) {
-      setUser(JSON.parse(userData));
+    const localToken = localStorage.getItem("token");
+    if (localToken) {
+      setToken(localToken);
+      const decodedToken: decodedTokenType = jwtDecode(localToken);
+      setUser(decodedToken.data);
     }
   }, []);
 
-  const login = async (password: string, email: string) => {
-    const response = await fetch("http://localhost:4000/login", {
-      method: "POST",
-      headers: { "Content-type": "application/json" },
-      body: JSON.stringify({
-        email: email,
-        password: password,
-      }),
-    });
-
-    const user = await response.json();
-    localStorage.setItem("user", JSON.stringify(user));
-    setUser(user);
+  const values = {
+    user,
+    setUser,
+    token,
+    setToken,
   };
 
-  const values = { login: login, setUser: setUser, user: user };
   return <AuthContext.Provider value={values}>{children}</AuthContext.Provider>;
 };
 

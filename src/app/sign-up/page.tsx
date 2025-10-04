@@ -2,6 +2,12 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { ChangeEvent, useState } from "react";
+import { Toaster } from "sonner";
+import { toast } from "sonner";
+import { useRouter } from "next/navigation";
+import { decodedTokenType } from "../../../../../instagram/instagram-frontend/src/providers/AuthProvider";
+import { jwtDecode } from "jwt-decode";
+import { useUser } from "../../../../../instagram/instagram-frontend/src/providers/AuthProvider";
 
 type UserType = {
   userName: string;
@@ -25,50 +31,63 @@ type Users = {
 };
 
 const Page = () => {
-  const [user, setUser] = useState<UserType>({
+  const { user, setUser, token, setToken } = useUser();
+  const [userInfo, setUserInfo] = useState<UserType>({
     userName: "",
     fullName: "",
     email: "",
     password: "",
   });
+  const { push } = useRouter();
   const [users, setUsers] = useState<Users[]>([]);
 
   const handleUserValues = (event: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
 
     if (name === "userName") {
-      setUser((prev) => {
+      setUserInfo((prev) => {
         return { ...prev, userName: value };
       });
     }
     if (name === "fullName") {
-      setUser((prev) => {
+      setUserInfo((prev) => {
         return { ...prev, fullName: value };
       });
     }
     if (name === "email") {
-      setUser((prev) => {
+      setUserInfo((prev) => {
         return { ...prev, email: value };
       });
     }
     if (name === "password") {
-      setUser((prev) => {
+      setUserInfo((prev) => {
         return { ...prev, password: value };
       });
     }
   };
 
   const addUserValues = async () => {
-    await fetch("http://localhost:4000", {
+    const response = await fetch("http://localhost:4000/signup", {
       method: "POST",
       headers: { "Content-type": "application/json" },
       body: JSON.stringify({
-        userName: user.userName,
-        fullName: user.fullName,
-        email: user.email,
-        password: user.password,
+        userName: userInfo.userName,
+        fullName: userInfo.fullName,
+        email: userInfo.email,
+        password: userInfo.password,
       }),
     });
+    if (response.ok) {
+      const token = await response.json();
+      localStorage.setItem("token", token);
+      setToken(token);
+      const decodedToken: decodedTokenType = jwtDecode(token);
+      setUser(decodedToken.data);
+      push("/");
+      toast.success("good");
+    } else {
+      toast.error("sad ):");
+    }
   };
 
   return (
@@ -76,26 +95,27 @@ const Page = () => {
       <Input
         placeholder="userName"
         name="userName"
-        onChange={(e) => handleUserValues}
+        onChange={handleUserValues}
       ></Input>
       <Input
         placeholder="fullName"
         name="fullName"
-        onChange={(e) => handleUserValues}
+        onChange={handleUserValues}
       ></Input>
       <Input
         placeholder="email"
         name="email"
-        onChange={(e) => handleUserValues}
+        onChange={handleUserValues}
       ></Input>
       <Input
         placeholder="password"
         name="password"
-        onChange={(e) => handleUserValues}
+        onChange={handleUserValues}
       ></Input>
       <Button onClick={addUserValues}>submit</Button>
+      <Toaster />
     </div>
   );
 };
 
-export default Page();
+export default Page;

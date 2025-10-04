@@ -2,13 +2,20 @@
 
 import { useUser } from "@/providers/AuthProvider";
 import { useRouter } from "next/navigation";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 
 export default function Home() {
   const { user } = useUser();
   const { push } = useRouter();
 
-  if (!user) push("/login");
+  useEffect(() => {
+    if (!user) push("/login");
+  }, [user]);
 
-  return <div>{user?.userName}</div>;
+  return (
+    <div>
+      {" "}
+      <div>{user?.userName}</div>
+    </div>
+  );
 }
