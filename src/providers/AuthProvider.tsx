@@ -12,13 +12,15 @@ import {
   useState,
 } from "react";
 
-type User = {
+export type User = {
   _id: string;
   email: string;
   password: string;
   userName: string;
   bio: string | null;
   profilePic: string | null;
+  followers: string[];
+  following: string[];
 };
 
 type AuthContext = {

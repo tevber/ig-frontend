@@ -7,13 +7,14 @@ import { useUser } from "@/providers/AuthProvider";
 import { toast, Toaster } from "sonner";
 import { upload } from "@vercel/blob/client";
 import { useRouter } from "next/navigation";
+import { User } from "lucide-react";
 
 const Page = () => {
   const [inputValues, setInputValues] = useState("");
   const [imageUrl, setImageUrl] = useState("");
-  const { token } = useUser();
+  const { token, user } = useUser();
   const { push } = useRouter();
-  const [postValues, setPostValues] = useState("");
+  const [captionValues, setCaptionValues] = useState("");
   const HF_API_KEY = process.env.HF_API_KEY;
 
   const handleInputValues = (event: ChangeEvent<HTMLInputElement>) => {
@@ -63,26 +64,27 @@ const Page = () => {
   };
 
   const createPost = async () => {
-    const response = await fetch("http://localhost:4000/post", {
+    const response = await fetch("http://localhost:4000/post/create", {
       method: "POST",
       headers: {
         "Content-type": "application/json",
         Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify({
-        caption: "caption",
-        images:
-          "https://fastly.picsum.photos/id/67/200/300.jpg?hmac=GntzjckKE7-naeHFrr8ZEIIaj3Bm-Iln4f844p1Np08",
+        userId: user?._id,
+        caption: captionValues,
+        images: [imageUrl],
       }),
     });
 
     if (response.ok) {
-      toast.success("ert");
+      toast.success("good");
     }
   };
 
   const handleCaption = (event: ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = event.target;
+    const { value } = event.target;
+    setCaptionValues(value);
   };
 
   return (
@@ -114,6 +116,7 @@ const Page = () => {
         name="caption"
         onChange={handleCaption}
       ></Input>
+      <Button onClick={createPost}>create Post</Button>
       <Toaster />
     </div>
   );

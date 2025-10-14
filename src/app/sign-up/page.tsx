@@ -38,7 +38,6 @@ const Page = () => {
     password: "",
   });
   const { push } = useRouter();
-  const [users, setUsers] = useState<Users[]>([]);
 
   const handleUserValues = (event: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
