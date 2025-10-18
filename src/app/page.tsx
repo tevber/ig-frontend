@@ -65,24 +65,6 @@ export default function Home() {
     }
   };
 
-  const followUser = async (followedUserId: string) => {
-    const response = await fetch(
-      `http://localhost:4000/toggle-follow/${followedUserId}`,
-      {
-        method: "POST",
-        headers: {
-          "Content-type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
-    if (response.ok) {
-      toast.success("success");
-    } else {
-      toast.error("failure2");
-    }
-  };
-
   useEffect(() => {
     if (!user) push("/login");
   }, [user]);
@@ -103,18 +85,11 @@ export default function Home() {
         {postData.map((post, index) => {
           return (
             <div key={index}>
-              <div onClick={() => push(`/profile/${post.userId._id}`)}>
-                <div>{post.userId.userName}</div>
-                {post.userId.followers.includes(myId!) ? (
-                  <Button onClick={() => followUser(post.userId._id)}>
-                    follow
-                  </Button>
-                ) : (
-                  <Button onClick={() => followUser(post.userId._id)}>
-                    follow
-                  </Button>
-                )}
-              </div>
+              <div>{post.userId.userName}</div>
+              <Button onClick={() => push(`/profile/${post.userId._id}`)}>
+                profile
+              </Button>
+
               <img src={post.images[0]}></img>
 
               <div>{post.caption}</div>
