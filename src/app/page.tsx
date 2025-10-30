@@ -7,13 +7,18 @@ import { useState, useEffect } from "react";
 import {
   Heart,
   HouseIcon,
+  MessageCircle,
   SearchIcon,
   SquarePlus,
   UserCircle,
 } from "lucide-react";
 import { User } from "../providers/AuthProvider";
-import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+} from "@/components/ui/carousel";
 
 export type PostType = {
   _id: string;
@@ -59,19 +64,15 @@ export default function Home() {
       }
     );
     if (response.ok) {
-      toast.success("success");
-    } else {
-      toast.error("failure2");
+      await getPosts();
     }
   };
 
   useEffect(() => {
-    if (!user) push("/login");
-  }, [user]);
-
-  useEffect(() => {
     if (token) {
       getPosts();
+    } else {
+      push("/login");
     }
   }, [token]);
 
@@ -84,16 +85,39 @@ export default function Home() {
       <div className="pb-10 pt-10">
         {postData.map((post, index) => {
           return (
-            <div key={index}>
-              <div>{post.userId.userName}</div>
-              <Button onClick={() => push(`/profile/${post.userId._id}`)}>
-                profile
-              </Button>
-
-              <img src={post.images[0]}></img>
-
-              <div>{post.caption}</div>
-              <div>{post.likes}</div>
+            <div key={index} className="pt-10 border-1">
+              <div className="flex">
+                <img
+                  onClick={() => push(`/profile/${post.userId._id}`)}
+                  src={post.userId.profilePic || undefined}
+                  className="rounded-full w-10 h-10"
+                />
+                <div>{post.userId.userName}</div>
+              </div>
+              {post.images.length === 1 ? (
+                <img src={post.images} />
+              ) : (
+                <div className="flex justify-center pl-4.5">
+                  <Carousel className="w-110">
+                    <CarouselContent className="w-110">
+                      {post.images.map((url, index) => {
+                        return (
+                          <CarouselItem
+                            className="flex aspect-square items-center justify-center p-6 flex-col w-full"
+                            key={index}
+                          >
+                            <img src={url}></img>
+                            <div className="text-1xl font-semibold flex ">
+                              {index + 1} / {post.images.length}
+                            </div>
+                          </CarouselItem>
+                        );
+                      })}
+                    </CarouselContent>
+                  </Carousel>
+                </div>
+              )}
+              <MessageCircle onClick={() => push(`/comment/${post._id}`)} />
               <div className="flex">
                 <div onClick={() => postLike(post._id)}>
                   <div className="flex">
@@ -106,13 +130,14 @@ export default function Home() {
                   </div>
                 </div>
               </div>
+              <div>{post.caption}</div>
             </div>
           );
         })}
         <div className="fixed  bottom-0  flex justify-around w-full bg-white pt-2 pb-2">
           <HouseIcon onClick={() => push("/")} />
           <SearchIcon onClick={() => push("/search")} />
-          <SquarePlus onClick={() => push("/ai-generate")} />
+          <SquarePlus onClick={() => push("/decision")} />
           <UserCircle onClick={() => push("/profile")} />
         </div>
       </div>

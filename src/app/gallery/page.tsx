@@ -14,55 +14,29 @@ import {
 } from "@/components/ui/carousel";
 
 const Page = () => {
-  const [inputValues, setInputValues] = useState("");
+  const [file, setFile] = useState<File | null>(null);
   const [imageUrl, setImageUrl] = useState<string[]>([]);
   const { token, user } = useUser();
   const { push } = useRouter();
   const [captionValues, setCaptionValues] = useState("");
-  const HF_API_KEY = process.env.HF_API_KEY;
 
-  const handleInputValues = (event: ChangeEvent<HTMLInputElement>) => {
-    const { value } = event.target;
-
-    setInputValues(value);
+  const handleFile = async (e: ChangeEvent<HTMLInputElement>) => {
+    const selectedFile = e.target.files?.[0];
+    e.target.value;
+    if (!selectedFile) return;
+    setFile(selectedFile);
   };
 
-  const generateImage = async () => {
-    if (!inputValues.trim()) return;
-
-    const headers = {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${HF_API_KEY}`,
-    };
-
-    const response = await fetch(
-      "https://api-inference.huggingface.co/models/stabilityai/stable-diffusion-xl-base-1.0",
-      {
-        method: "POST",
-        headers: headers,
-        body: JSON.stringify({
-          inputs: inputValues,
-          parameters: {
-            negative_prompt:
-              "blurry, bad quality, distorted, body proportions are not correct, too accurate",
-            num_inference_steps: 20,
-            guidance_scale: 7.5,
-          },
-        }),
-      }
-    );
-    const blob = await response.blob();
-    const file = new File([blob], "generated.png", { type: "image/png" });
+  const uploadImage = async () => {
+    if (!file) return;
     const uploaded = await upload(file.name, file, {
       access: "public",
       handleUploadUrl: "/api/upload",
     });
+
     setImageUrl((prev) => {
       return [...prev, uploaded.url];
     });
-    if (uploaded) {
-      toast.success("yippee");
-    }
   };
 
   const createPost = async () => {
@@ -101,15 +75,8 @@ const Page = () => {
         </button>{" "}
         <div className="flex justify-center">New Photo Post</div>
       </div>
-      <div className="text-[40px]">Explore ai generated images</div>
-      <Input
-        onChange={handleInputValues}
-        placeholder="input"
-        className="flex justify-center h-[50px] "
-      ></Input>
-      <Button onClick={generateImage} className="flex justify-end">
-        generate
-      </Button>
+      <div className="text-[40px]">import images from gallery</div>
+      <Input type="file" accept="image/*" onChange={handleFile}></Input>
       {imageUrl.length === 1 ? (
         <img src={imageUrl[0]} />
       ) : (
@@ -139,7 +106,8 @@ const Page = () => {
         name="caption"
         onChange={handleCaption}
       ></Input>
-      <Button onClick={createPost}>create Post</Button>
+      <Button onClick={() => uploadImage()}></Button>
+      <Button onClick={() => createPost()}>create Post</Button>
       <Toaster />
     </div>
   );

@@ -7,14 +7,7 @@ import { PostType } from "@/app/page";
 import { User } from "@/providers/AuthProvider";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
-import { Card } from "@/components/ui/card";
-import {
-  Heart,
-  HouseIcon,
-  SearchIcon,
-  SquarePlus,
-  UserCircle,
-} from "lucide-react";
+import { HouseIcon, SearchIcon, SquarePlus, UserCircle } from "lucide-react";
 
 const Page = () => {
   const [postData, setPostData] = useState<PostType[]>([]);
@@ -77,7 +70,6 @@ const Page = () => {
 
     if (response.ok) {
       const data = await response.json();
-      console.log(data);
       setUserData(data);
     } else {
       toast.error("failure");
@@ -90,22 +82,37 @@ const Page = () => {
       getUser();
     }
   }, [token]);
+
+  console.log(userData?.bio);
   return (
     <div>
       {" "}
-      <div className="border-b-1">
-        <img src={userData?.profilePic} />
-        <div className="flex justify-center">{userData?.userName}</div>
-        <div>{userData?.bio}</div>
-        <div>
-          {user?.followers.includes(myId!) ? (
-            <Button onClick={() => followUser(userData!._id)}>unfollow</Button>
-          ) : (
-            <Button onClick={() => followUser(userData?._id!)}>follow</Button>
-          )}
+      {
+        <div className="border-b-1 flex p-5 ">
+          <img
+            src={userData?.profilePic || undefined}
+            className="rounded-full w-20 h-20"
+          />
+          <div className="flex justify-center flex-col">
+            {userData?.userName}
+          </div>
+          <div className="p-3">{userData?.bio}</div>
+          <div>
+            {userData?.followers.includes(myId!) ? (
+              <Button onClick={() => followUser(userData!._id)}>
+                unfollow
+              </Button>
+            ) : (
+              <Button onClick={() => followUser(userData!._id)}>follow</Button>
+            )}
+          </div>
         </div>
-      </div>
+      }
       <div className="flex justify-around border-b-1">
+        <div className="flex flex-col">
+          <div>{postData.length}</div>
+          <div>posts</div>
+        </div>
         <div className="flex flex-col">
           <div>{userData?.followers.length}</div>
           <div>followers</div>
@@ -115,25 +122,26 @@ const Page = () => {
           <div>following</div>
         </div>
       </div>
-      <div className="p-1 gap-1 flex flex-wrap">
-        {postData.map((post, index) => {
-          return (
-            <div key={index}>
-              {" "}
-              <img src={post.images} className="w-33 h-45"></img>
-            </div>
-          );
-        })}
+      {
+        <div className="p-1 gap-1 flex flex-wrap">
+          {postData.map((post, index) => {
+            return (
+              <div key={index}>
+                {" "}
+                <img src={post.images[0]} className="w-33 h-45"></img>
+              </div>
+            );
+          })}
+        </div>
+      }
+      <div className="fixed  bottom-0  flex justify-around w-full bg-white pt-2 pb-2">
+        <HouseIcon onClick={() => push("/")} />
+        <SearchIcon onClick={() => push("/search")} />
+        <SquarePlus onClick={() => push("/decision")} />
+        <UserCircle onClick={() => push("/profile")} />
       </div>
     </div>
   );
-
-  <div className="fixed  bottom-0  flex justify-around w-full bg-white pt-2 pb-2">
-    <HouseIcon onClick={() => push("/")} />
-    <SearchIcon onClick={() => push("/search")} />
-    <SquarePlus onClick={() => push("/ai-generate")} />
-    <UserCircle onClick={() => push("/profile")} />
-  </div>;
 };
 
 export default Page;

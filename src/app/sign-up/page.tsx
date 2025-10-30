@@ -89,29 +89,41 @@ const Page = () => {
   };
 
   return (
-    <div>
-      <Input
-        placeholder="userName"
-        name="userName"
-        onChange={handleUserValues}
-      ></Input>
-      <Input
-        placeholder="fullName"
-        name="fullName"
-        onChange={handleUserValues}
-      ></Input>
-      <Input
-        placeholder="email"
-        name="email"
-        onChange={handleUserValues}
-      ></Input>
-      <Input
-        placeholder="password"
-        name="password"
-        onChange={handleUserValues}
-      ></Input>
-      <Button onClick={addUserValues}>submit</Button>
-      <Toaster />
+    <div className="gap-[10px]">
+      <div className="pt-30">
+        <div className="pt-1">
+          <Input
+            placeholder="userName"
+            name="userName"
+            onChange={handleUserValues}
+          ></Input>
+        </div>
+        <div className="pt-1">
+          <Input
+            placeholder="fullName"
+            name="fullName"
+            onChange={handleUserValues}
+          ></Input>
+        </div>
+        <div className="pt-1">
+          <Input
+            placeholder="email"
+            name="email"
+            onChange={handleUserValues}
+          ></Input>
+        </div>
+        <div className="pt-1">
+          <Input
+            placeholder="password"
+            name="password"
+            onChange={handleUserValues}
+          ></Input>
+        </div>
+        <Button onClick={addUserValues} className="mt-1 w-full">
+          submit
+        </Button>
+        <Toaster />
+      </div>
     </div>
   );
 };

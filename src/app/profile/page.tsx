@@ -1,12 +1,8 @@
 "use client";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { ChangeEvent, useState, useEffect } from "react";
-import { Toaster } from "sonner";
-import { toast } from "sonner";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { jwtDecode } from "jwt-decode";
-import { decodedTokenType, useUser } from "@/providers/AuthProvider";
+import { useUser } from "@/providers/AuthProvider";
 import { HouseIcon, SearchIcon, SquarePlus, User } from "lucide-react";
 
 type PostType = {
@@ -21,13 +17,16 @@ const Page = () => {
   const [postData, setPostData] = useState<PostType[]>([]);
 
   const getPosts = async () => {
-    const response = await fetch("http://localhost:4000/post/all-post", {
-      method: "GET",
-      headers: {
-        "Content-type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-    });
+    const response = await fetch(
+      `http://localhost:4000/post/user-post/${user?._id}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
     const data = await response.json();
     setPostData(data);
   };
@@ -37,19 +36,58 @@ const Page = () => {
       getPosts();
     }
   }, [token]);
-
   return (
     <div>
       {" "}
-      <div className="fixed bg-white w-full flex justify-center border-b-1 pb-3">
-        {user?.userName}
+      <div className="border-b-1 flex p-5">
+        <div className="fixed bg-white w-full flex justify-center border-b-1 pb-3">
+          {user?.userName}
+        </div>
       </div>
       <div className="pt-10">
-        <Button onClick={() => push("/edit")}>edit</Button>
+        <div className="flex gap-5">
+          <img
+            src={user?.profilePic || undefined}
+            className="w-20 h-20 rounded-full"
+          />
+          <Button onClick={() => push("/profile/edit")} className="mt-10">
+            edit
+          </Button>
+        </div>
+        <div>{user?.bio}</div>
+        <div className="flex justify-around border-b-1">
+          <div className="flex flex-col">
+            <div>{postData.length}</div>
+            <div>posts</div>
+          </div>
+          <div className="flex flex-col">
+            <div>{user?.followers.length}</div>
+            <div>followers</div>
+          </div>
+          <div className="flex flex-col">
+            <div>{user?.following.length}</div>
+            <div>following</div>
+          </div>
+        </div>
+        {
+          <div className="flex pl-1 gap-1">
+            {" "}
+            {postData.map((post, index) => {
+              return (
+                <div key={index}>
+                  <div onClick={() => push("/posts")}>
+                    {" "}
+                    <img src={post.images[0]} className="w-33 h-45 "></img>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        }
         <div className="fixed  bottom-0  flex justify-around w-full bg-white pt-2 pb-2 border-t-1">
           <HouseIcon onClick={() => push("/")} />
           <SearchIcon onClick={() => push("/search")} />
-          <SquarePlus onClick={() => push("/ai-generate")} />
+          <SquarePlus onClick={() => push("/decision")} />
           <User onClick={() => push("/profile")} />
         </div>
       </div>

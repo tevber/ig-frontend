@@ -62,23 +62,27 @@ export default function Page() {
   }, [user]);
 
   return (
-    <div className="flex justify-center flex-col gap-[10px]">
-      <IG_LOGO />
-      <Input
-        placeholder="email"
-        className="flex justify-center"
-        name="email"
-        onChange={handleLoginValues}
-      ></Input>
-      <Input
-        placeholder="password"
-        name="password"
-        onChange={handleLoginValues}
-      ></Input>
-      <Button onClick={handleLogin}>login</Button>
-      <Button onClick={() => push("/sign-up")}>
-        dont have an account? make one
-      </Button>
+    <div className="flex justify-center flex-col gap-[10px] pt-5">
+      <div className="flex justify-center">
+        <IG_LOGO />
+      </div>
+      <div className=" flex flex-col gap-[10px] pt-50">
+        <Input
+          placeholder="email"
+          className="flex justify-center"
+          name="email"
+          onChange={handleLoginValues}
+        ></Input>
+        <Input
+          placeholder="password"
+          name="password"
+          onChange={handleLoginValues}
+        ></Input>
+        <Button onClick={handleLogin}>login</Button>
+        <Button onClick={() => push("/sign-up")}>
+          dont have an account? make one
+        </Button>
+      </div>
     </div>
   );
 }
