@@ -4,6 +4,7 @@ import { useUser } from "@/providers/AuthProvider";
 import { ChangeEvent, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Input } from "@/components/ui/input";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 import { HouseIcon, SearchIcon, SquarePlus, UserCircle } from "lucide-react";
 
@@ -73,10 +74,12 @@ const Page = () => {
                   className="flex"
                   onClick={() => push(`/profile/${userInfo?._id}`)}
                 >
-                  <img
-                    src={userInfo.profilePic || undefined}
-                    className="rounded-full w-10 h-10"
-                  />
+                  <Avatar>
+                    <AvatarImage src={userInfo.profilePic || undefined} />
+                    <AvatarFallback>
+                      {userInfo.userName.charAt(0)}
+                    </AvatarFallback>
+                  </Avatar>
                   <div>{userInfo.userName}</div>
 
                   <div className="text-gray-500 pl-45">{userInfo.email}</div>
