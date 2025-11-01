@@ -98,7 +98,7 @@ export default function Home() {
                 <div>{post.userId.userName}</div>
               </div>
               {post.images.length === 1 ? (
-                <img src={post.images?.[0] || undefined} />
+                <img src={post.images?.[0] || undefined} loading="lazy" />
               ) : (
                 <div className="flex justify-center pl-4.5">
                   <Carousel className="w-110">
@@ -109,7 +109,7 @@ export default function Home() {
                             className="flex aspect-square items-center justify-center p-6 flex-col w-full"
                             key={index}
                           >
-                            <img src={url}></img>
+                            <img src={url} loading="lazy"></img>
                             <div className="text-1xl font-semibold flex ">
                               {index + 1} / {post.images.length}
                             </div>

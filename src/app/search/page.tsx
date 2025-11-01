@@ -64,7 +64,7 @@ const Page = () => {
       <div className="pt-15">
         {users
           ?.filter((userInfo) => {
-            return userInfo.userName === inputValue;
+            return userInfo.userName.toLowerCase() === inputValue.toLowerCase();
           })
           .map((userInfo, index) => {
             return (
@@ -73,6 +73,7 @@ const Page = () => {
                   className="flex"
                   onClick={() => push(`/profile/${userInfo?._id}`)}
                 >
+                  <img src={userInfo.profilePic || undefined} />
                   <div>{userInfo.userName}</div>
 
                   <div className="text-gray-500 pl-45">{userInfo.email}</div>

@@ -134,8 +134,12 @@ const Page = () => {
               accept="image/*"
               onChange={handleFile}
             ></Input>{" "}
-            <Button onClick={() => uploadImage()}>set new pic</Button>
-            <Button onClick={() => addPicValues()}>set new pic</Button>
+            <Button onClick={() => uploadImage()}>
+              set new picture (click first)
+            </Button>
+            <Button onClick={() => addPicValues()}>
+              set new picture (click second)
+            </Button>
           </DialogContent>
         </Dialog>
         <Dialog>
