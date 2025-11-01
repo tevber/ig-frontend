@@ -18,7 +18,7 @@ const Page = () => {
 
   const getPosts = async () => {
     const response = await fetch(
-      `http://localhost:4000/post/user-post/${user?._id}`,
+      `https://ig-backend-2u78.onrender.com/post/user-post/${user?._id}`,
       {
         method: "GET",
         headers: {

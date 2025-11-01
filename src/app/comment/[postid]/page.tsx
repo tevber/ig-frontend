@@ -45,17 +45,20 @@ export default function Home() {
   };
 
   const postComment = async () => {
-    const response = await fetch("http://localhost:4000/comment/create", {
-      method: "POST",
-      headers: {
-        "Content-type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-      body: JSON.stringify({
-        comment: inputValue,
-        postId: postId,
-      }),
-    });
+    const response = await fetch(
+      "https://ig-backend-2u78.onrender.com/comment/create",
+      {
+        method: "POST",
+        headers: {
+          "Content-type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          comment: inputValue,
+          postId: postId,
+        }),
+      }
+    );
     if (response.ok) {
       toast.success("success");
     } else {
@@ -65,7 +68,7 @@ export default function Home() {
 
   const deleteComment = async (commentId: string) => {
     const response = await fetch(
-      `http://localhost:4000/comment/delete/${commentId}`,
+      `https://ig-backend-2u78.onrender.com/comment/delete/${commentId}`,
       {
         method: "DELETE",
         headers: {
@@ -82,13 +85,16 @@ export default function Home() {
   };
 
   const getUser = async () => {
-    const response = await fetch(`http://localhost:4000/profile/${user?._id}`, {
-      method: "GET",
-      headers: {
-        "Content-type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-    });
+    const response = await fetch(
+      `https://ig-backend-2u78.onrender.com/profile/${user?._id}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
 
     if (response.ok) {
       const data = await response.json();
@@ -100,7 +106,7 @@ export default function Home() {
 
   const getComments = async () => {
     const response = await fetch(
-      `http://localhost:4000/comment/get/${postId}`,
+      `https://ig-backend-2u78.onrender.com/comment/get/${postId}`,
       {
         method: "GET",
         headers: {

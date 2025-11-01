@@ -38,7 +38,7 @@ export default function Page() {
   };
 
   const handleLogin = async () => {
-    const response = await fetch("http://localhost:4000/login", {
+    const response = await fetch("https://ig-backend-2u78.onrender.com/login", {
       method: "POST",
       headers: { "Content-type": "application/json" },
       body: JSON.stringify({

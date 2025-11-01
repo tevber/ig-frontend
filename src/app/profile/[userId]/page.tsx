@@ -19,7 +19,7 @@ const Page = () => {
   const myId = user?._id;
   const followUser = async (followedUserId: string) => {
     const response = await fetch(
-      `http://localhost:4000/toggle-follow/${followedUserId}`,
+      `https://ig-backend-2u78.onrender.com/toggle-follow/${followedUserId}`,
       {
         method: "POST",
         headers: {
@@ -37,7 +37,7 @@ const Page = () => {
 
   const getPosts = async () => {
     const response = await fetch(
-      `http://localhost:4000/post/user-post/${params.userId}`,
+      `https://ig-backend-2u78.onrender.com/post/user-post/${params.userId}`,
       {
         method: "GET",
         headers: {
@@ -58,7 +58,7 @@ const Page = () => {
 
   const getUser = async () => {
     const response = await fetch(
-      `http://localhost:4000/profile/${params.userId}`,
+      `https://ig-backend-2u78.onrender.com/profile/${params.userId}`,
       {
         method: "GET",
         headers: {

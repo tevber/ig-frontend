@@ -48,7 +48,7 @@ export default function Home() {
 
   const getPosts = async () => {
     const response = await fetch(
-      `http://localhost:4000/post/user-post/${user?._id}`,
+      `https://ig-backend-2u78.onrender.com/post/user-post/${user?._id}`,
       {
         method: "GET",
         headers: {
@@ -68,7 +68,7 @@ export default function Home() {
 
   const postLike = async (postId: string) => {
     const response = await fetch(
-      `http://localhost:4000/post/toggle-like/${postId}`,
+      `https://ig-backend-2u78.onrender.com/post/toggle-like/${postId}`,
       {
         method: "POST",
         headers: {
@@ -89,7 +89,7 @@ export default function Home() {
 
   const deletePost = async (postId: string) => {
     const response = await fetch(
-      `http://localhost:4000/post/delete/${postId}`,
+      `https://ig-backend-2u78.onrender.com/post/delete/${postId}`,
       {
         method: "DELETE",
         headers: {
@@ -112,16 +112,19 @@ export default function Home() {
   };
 
   const editPost = async (postId: string) => {
-    const response = await fetch(`http://localhost:4000/post/edit/${postId}`, {
-      method: "PUT",
-      headers: {
-        "Content-type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-      body: JSON.stringify({
-        caption: inputValue,
-      }),
-    });
+    const response = await fetch(
+      `https://ig-backend-2u78.onrender.com/post/edit/${postId}`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          caption: inputValue,
+        }),
+      }
+    );
     if (response.ok) {
       toast.success("success");
     } else {

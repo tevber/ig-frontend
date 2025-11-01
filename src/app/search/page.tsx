@@ -31,13 +31,16 @@ const Page = () => {
   };
 
   const Search = async () => {
-    const response = await fetch(`http://localhost:4000/search`, {
-      method: "GET",
-      headers: {
-        "Content-type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-    });
+    const response = await fetch(
+      `https://ig-backend-2u78.onrender.com/search`,
+      {
+        method: "GET",
+        headers: {
+          "Content-type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
     const data = await response.json();
 
     setUsers(data);

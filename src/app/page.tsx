@@ -36,13 +36,16 @@ export default function Home() {
   const myId = user?._id;
 
   const getPosts = async () => {
-    const response = await fetch("http://localhost:4000/post/all-post", {
-      method: "GET",
-      headers: {
-        "Content-type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-    });
+    const response = await fetch(
+      "https://ig-backend-2u78.onrender.com/post/all-post",
+      {
+        method: "GET",
+        headers: {
+          "Content-type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
 
     if (response.ok) {
       const data = await response.json();
@@ -54,7 +57,7 @@ export default function Home() {
 
   const postLike = async (postId: string) => {
     const response = await fetch(
-      `http://localhost:4000/post/toggle-like/${postId}`,
+      `https://ig-backend-2u78.onrender.com/post/toggle-like/${postId}`,
       {
         method: "POST",
         headers: {

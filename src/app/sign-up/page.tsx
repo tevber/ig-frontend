@@ -65,16 +65,19 @@ const Page = () => {
   };
 
   const addUserValues = async () => {
-    const response = await fetch("http://localhost:4000/signup", {
-      method: "POST",
-      headers: { "Content-type": "application/json" },
-      body: JSON.stringify({
-        userName: userInfo.userName,
-        fullName: userInfo.fullName,
-        email: userInfo.email,
-        password: userInfo.password,
-      }),
-    });
+    const response = await fetch(
+      "https://ig-backend-2u78.onrender.com/signup",
+      {
+        method: "POST",
+        headers: { "Content-type": "application/json" },
+        body: JSON.stringify({
+          userName: userInfo.userName,
+          fullName: userInfo.fullName,
+          email: userInfo.email,
+          password: userInfo.password,
+        }),
+      }
+    );
     if (response.ok) {
       const token = await response.json();
       localStorage.setItem("token", token);

@@ -64,7 +64,7 @@ const Page = () => {
 
   const addPicValues = async () => {
     const response = await fetch(
-      `http://localhost:4000/edit-pic/${user?._id}`,
+      `https://ig-backend-2u78.onrender.com/edit-pic/${user?._id}`,
       {
         method: "PUT",
         headers: {
@@ -84,17 +84,20 @@ const Page = () => {
   };
 
   const updateInfo = async () => {
-    const response = await fetch(`http://localhost:4000/updateInfo`, {
-      method: "PUT",
-      headers: {
-        "Content-type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-      body: JSON.stringify({
-        bio: names.bio,
-        userName: names.userName,
-      }),
-    });
+    const response = await fetch(
+      `https://ig-backend-2u78.onrender.com/updateInfo`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          bio: names.bio,
+          userName: names.userName,
+        }),
+      }
+    );
     if (response.ok) {
       toast.success("success");
     }
