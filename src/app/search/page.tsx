@@ -62,7 +62,7 @@ const Page = () => {
           className="w-40"
         ></Input>
       </div>
-      <div className="pt-15">
+      <div className="pt-15 gap-5">
         {users
           ?.filter((userInfo) => {
             return userInfo.userName.toLowerCase() === inputValue.toLowerCase();
@@ -80,9 +80,11 @@ const Page = () => {
                       {userInfo.userName.charAt(0)}
                     </AvatarFallback>
                   </Avatar>
-                  <div>{userInfo.userName}</div>
+                  <div className="pt-5">{userInfo.userName}</div>
 
-                  <div className="text-gray-500 pl-45">{userInfo.email}</div>
+                  <div className="text-gray-500 pl-45 pt-5">
+                    {userInfo.email}
+                  </div>
                 </div>
               </div>
             );
