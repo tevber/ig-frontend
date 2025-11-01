@@ -39,7 +39,16 @@ const Page = () => {
   };
 
   const createPost = async () => {
-    await uploadImage();
+    if (!file) return;
+    const uploaded = await upload(file.name, file, {
+      access: "public",
+      handleUploadUrl: "/api/upload",
+    });
+
+    setImageUrl((prev) => {
+      return [...prev, uploaded.url];
+    });
+
     const response = await fetch(
       "https://ig-backend-2u78.onrender.com/post/create",
       {
@@ -51,7 +60,7 @@ const Page = () => {
         body: JSON.stringify({
           userId: user?._id,
           caption: captionValues,
-          images: imageUrl,
+          images: uploaded.url,
         }),
       }
     );
