@@ -19,6 +19,7 @@ import {
   CarouselContent,
   CarouselItem,
 } from "@/components/ui/carousel";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 export type PostType = {
   _id: string;
@@ -90,11 +91,12 @@ export default function Home() {
           return (
             <div key={index} className="pt-10 border-1">
               <div className="flex">
-                <img
-                  onClick={() => push(`/profile/${post.userId._id}`)}
-                  src={post.userId.profilePic || undefined}
-                  className="rounded-full w-10 h-10"
-                />
+                <Avatar onClick={() => push(`/profile/${post.userId._id}`)}>
+                  <AvatarImage src={post.userId.profilePic || undefined} />
+                  <AvatarFallback>
+                    {post.userId.userName.charAt(0)}
+                  </AvatarFallback>
+                </Avatar>
                 <div>{post.userId.userName}</div>
               </div>
               {post.images.length === 1 ? (

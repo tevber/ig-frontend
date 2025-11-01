@@ -8,6 +8,7 @@ import { User } from "@/providers/AuthProvider";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
 import { HouseIcon, SearchIcon, SquarePlus, UserCircle } from "lucide-react";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 const Page = () => {
   const [postData, setPostData] = useState<PostType[]>([]);
@@ -93,10 +94,13 @@ const Page = () => {
       {" "}
       {
         <div className="border-b-1 flex p-5 ">
-          <img
-            src={userData?.profilePic || undefined}
-            className="rounded-full w-20 h-20"
-          />
+          <Avatar onClick={() => push(`/profile/${userData?._id}`)}>
+            <AvatarImage
+              src={userData?.profilePic || undefined}
+              className="w-20 h-20"
+            />
+            <AvatarFallback>{userData?.userName.charAt(0)}</AvatarFallback>
+          </Avatar>
           <div className="flex justify-center flex-col">
             {userData?.userName}
           </div>

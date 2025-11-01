@@ -22,7 +22,6 @@ const Page = () => {
 
   const handleFile = async (e: ChangeEvent<HTMLInputElement>) => {
     const selectedFile = e.target.files?.[0];
-    e.target.value;
     if (!selectedFile) return;
     setFile(selectedFile);
   };
@@ -40,6 +39,7 @@ const Page = () => {
   };
 
   const createPost = async () => {
+    await uploadImage();
     const response = await fetch(
       "https://ig-backend-2u78.onrender.com/post/create",
       {
@@ -109,7 +109,7 @@ const Page = () => {
         name="caption"
         onChange={handleCaption}
       ></Input>
-      <Button onClick={() => uploadImage()}></Button>
+      {/* <Button onClick={() => uploadImage()}></Button> */}
       <Button onClick={() => createPost()}>create Post</Button>
       <Toaster />
     </div>
