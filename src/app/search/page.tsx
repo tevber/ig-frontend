@@ -73,7 +73,10 @@ const Page = () => {
                   className="flex"
                   onClick={() => push(`/profile/${userInfo?._id}`)}
                 >
-                  <img src={userInfo.profilePic || undefined} />
+                  <img
+                    src={userInfo.profilePic || undefined}
+                    className="rounded-full w-10 h-10"
+                  />
                   <div>{userInfo.userName}</div>
 
                   <div className="text-gray-500 pl-45">{userInfo.email}</div>
