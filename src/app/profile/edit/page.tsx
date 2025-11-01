@@ -31,7 +31,6 @@ const Page = () => {
     bio: "",
     userName: `${user?.userName}`,
   });
-  const [imageUrl, setImageUrl] = useState("");
 
   const handleFile = (e: ChangeEvent<HTMLInputElement>) => {
     const selectedFile = e.target.files?.[0];
@@ -52,18 +51,14 @@ const Page = () => {
       });
     }
   };
-  const uploadImage = async () => {
+
+  const addPicValues = async () => {
     if (!file) return;
     const uploaded = await upload(file.name, file, {
       access: "public",
       handleUploadUrl: "/api/upload",
     });
 
-    setImageUrl(uploaded.url);
-  };
-
-  const addPicValues = async () => {
-    await uploadImage();
     const response = await fetch(
       `https://ig-backend-2u78.onrender.com/edit-pic/${user?._id}`,
       {
@@ -73,7 +68,7 @@ const Page = () => {
           Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify({
-          profilePic: imageUrl,
+          profilePic: uploaded.url,
         }),
       }
     );
