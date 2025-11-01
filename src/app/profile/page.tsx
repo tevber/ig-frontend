@@ -70,7 +70,7 @@ const Page = () => {
           </div>
         </div>
         {
-          <div className="flex pl-1 gap-1">
+          <div className="flex pl-1 gap-1 flex-wrap">
             {" "}
             {postData.map((post, index) => {
               return (

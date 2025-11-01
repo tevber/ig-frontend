@@ -9,7 +9,7 @@ const Page = () => {
   return (
     <div className="flex justify-center align-middle flex-col gap-3">
       <div className="text-4xl flex justify-center">Post</div>
-      <div className="flex justify-center align-middle flex-col gap-3">
+      <div className="flex justify-center align-middle flex-col gap-3 pl-20">
         <Button onClick={() => push("/ai-generate")} className="w-50">
           ai-generate
         </Button>

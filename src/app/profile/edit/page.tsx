@@ -63,6 +63,7 @@ const Page = () => {
   };
 
   const addPicValues = async () => {
+    await uploadImage();
     const response = await fetch(
       `https://ig-backend-2u78.onrender.com/edit-pic/${user?._id}`,
       {
@@ -134,9 +135,6 @@ const Page = () => {
               accept="image/*"
               onChange={handleFile}
             ></Input>{" "}
-            <Button onClick={() => uploadImage()}>
-              set new picture (click first)
-            </Button>
             <Button onClick={() => addPicValues()}>
               set new picture (click second)
             </Button>
