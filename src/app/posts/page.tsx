@@ -155,7 +155,7 @@ export default function Home() {
               <Dialog>
                 <DialogTrigger>
                   {" "}
-                  <Forward className="flex " />
+                  <Forward className="flex pl-50" />
                 </DialogTrigger>
                 <DialogContent>
                   <DialogHeader>
