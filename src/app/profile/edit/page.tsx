@@ -99,8 +99,6 @@ const Page = () => {
     }
   };
 
-  console.log(names.bio);
-
   return (
     <div>
       {" "}

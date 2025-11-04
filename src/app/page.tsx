@@ -100,7 +100,11 @@ export default function Home() {
                 <div>{post.userId.userName}</div>
               </div>
               {post.images.length === 1 ? (
-                <img src={post.images?.[0] || undefined} loading="lazy" />
+                <img
+                  src={post.images?.[0] || undefined}
+                  loading="lazy"
+                  className="justify-center"
+                />
               ) : (
                 <div className="flex justify-center pl-4.5">
                   <Carousel className="w-110">

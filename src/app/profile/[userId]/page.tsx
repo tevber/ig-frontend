@@ -84,8 +84,6 @@ const Page = () => {
     }
   }, [token]);
 
-  console.log(userData?.bio);
-
   if (userData?._id === user?._id) {
     push("/profile");
   }
