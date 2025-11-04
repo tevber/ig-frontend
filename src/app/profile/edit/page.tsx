@@ -17,6 +17,7 @@ import {
   DialogTitle,
   DialogDescription,
 } from "@/components/ui/dialog";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 type UserInfoType = {
   bio: string;
@@ -100,63 +101,59 @@ const Page = () => {
   };
 
   return (
-    <div>
+    <div className="ml-3 mr-3">
       {" "}
       <div className="fixed bg-white w-full flex justify-center border-b-1">
         Edit Profile
       </div>
       <div>Edit Profile</div>
-      <div className="flex flex-col">
-        <img
-          src={user?.profilePic || undefined}
-          className="rounded-full w-10 h-10"
-          onClick={() => push("/profile")}
-        />
-        <div>{user?.userName}</div>
-        <Dialog>
-          <DialogTrigger>
-            {" "}
-            <div>edit picture</div>
-          </DialogTrigger>
-          <DialogContent>
-            <DialogHeader>
-              <DialogTitle>Options</DialogTitle>
-            </DialogHeader>
-            <div>Caption change:</div>
-            <Input
-              type="file"
-              accept="image/*"
-              onChange={handleFile}
-            ></Input>{" "}
-            <Button onClick={() => addPicValues()}>
-              set new picture (click second)
-            </Button>
-          </DialogContent>
-        </Dialog>
-        <Dialog>
-          <DialogTrigger>
-            {" "}
-            <div>edit userName and bio</div>
-          </DialogTrigger>
-          <DialogContent>
-            <DialogHeader>
-              <DialogTitle>Options</DialogTitle>
-            </DialogHeader>
-            <div>changes:</div>
-            <Input
-              onChange={handleChanges}
-              name="bio"
-              placeholder="bio..."
-            ></Input>
-            <Input
-              onChange={handleChanges}
-              name="userName"
-              placeholder="userName..."
-            ></Input>
-            {""}
-            <Button onClick={() => updateInfo()}>update your info</Button>
-          </DialogContent>
-        </Dialog>
+      <div className="flex flex-col gap-5">
+        <div className="mb-2">change photo:</div>
+        <div className="bg-gray-500 flex-col flex h-30 w-100 rounded-2xl">
+          <div className="flex ">
+            <Avatar onClick={() => push("/profile")} className="w-25 h-25 m-3">
+              <AvatarImage src={user?.profilePic || undefined} />
+              <AvatarFallback>{user?.userName.charAt(0)}</AvatarFallback>
+            </Avatar>
+            <div className="ml-10">{user?.userName}</div>
+
+            <Dialog>
+              <DialogTrigger>
+                <div className="bold text-[20px] text-blue-500 bg-gray-600 rounded-3xl w-45 h-10 pt-1">
+                  change picture
+                </div>
+              </DialogTrigger>
+              <DialogContent>
+                <DialogHeader>
+                  <DialogTitle>Change picture</DialogTitle>
+                  <DialogDescription></DialogDescription>
+                </DialogHeader>
+                <Input
+                  type="file"
+                  accept="image/*"
+                  onChange={handleFile}
+                ></Input>{" "}
+                <Button onClick={() => addPicValues()}>set new picture</Button>{" "}
+              </DialogContent>
+            </Dialog>
+          </div>
+        </div>
+        <div> bio: </div>
+        <Input onChange={handleChanges} name="bio" placeholder="bio..."></Input>
+        <div>userName:</div>
+        <Input
+          onChange={handleChanges}
+          name="userName"
+          placeholder="userName..."
+        ></Input>
+        {""}
+        <Button onClick={() => updateInfo()}>update your info</Button>
+        <div className="fixed  bottom-0  flex justify-around w-full bg-white pt-2 pb-2 border-t-1">
+          <HouseIcon onClick={() => push("/")} />
+          <SearchIcon onClick={() => push("/search")} />
+          <SquarePlus onClick={() => push("/decision")} />
+          <User onClick={() => push("/profile")} />
+        </div>
       </div>
     </div>
   );

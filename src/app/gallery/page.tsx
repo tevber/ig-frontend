@@ -118,7 +118,6 @@ const Page = () => {
         name="caption"
         onChange={handleCaption}
       ></Input>
-      {/* <Button onClick={() => uploadImage()}></Button> */}
       <Button onClick={() => createPost()}>create Post</Button>
       <Toaster />
     </div>

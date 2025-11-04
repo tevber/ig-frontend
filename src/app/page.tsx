@@ -99,35 +99,37 @@ export default function Home() {
                 </Avatar>
                 <div>{post.userId.userName}</div>
               </div>
-              {post.images.length === 1 ? (
-                <img
-                  src={post.images?.[0] || undefined}
-                  loading="lazy"
-                  className="justify-center"
-                />
-              ) : (
-                <div className="flex justify-center pl-4.5">
-                  <Carousel className="w-110">
-                    <CarouselContent className="w-110">
-                      {post.images.map((url, index) => {
-                        return (
-                          <CarouselItem
-                            className="flex aspect-square items-center justify-center p-6 flex-col w-full"
-                            key={index}
-                          >
-                            <img src={url} loading="lazy"></img>
-                            <div className="text-1xl font-semibold flex ">
-                              {index + 1} / {post.images.length}
-                            </div>
-                          </CarouselItem>
-                        );
-                      })}
-                    </CarouselContent>
-                  </Carousel>
-                </div>
-              )}
-              <MessageCircle onClick={() => push(`/comment/${post._id}`)} />
-              <div className="flex">
+              <div className="flex justify-center">
+                {post.images.length === 1 ? (
+                  <img
+                    src={post.images?.[0] || undefined}
+                    loading="lazy"
+                    className="justify-center"
+                  />
+                ) : (
+                  <div className="flex justify-center pl-4.5">
+                    <Carousel className="w-110">
+                      <CarouselContent className="w-110">
+                        {post.images.map((url, index) => {
+                          return (
+                            <CarouselItem
+                              className="flex aspect-square items-center justify-center p-6 flex-col w-full"
+                              key={index}
+                            >
+                              <img src={url} loading="lazy"></img>
+                              <div className="text-1xl font-semibold flex ">
+                                {index + 1} / {post.images.length}
+                              </div>
+                            </CarouselItem>
+                          );
+                        })}
+                      </CarouselContent>
+                    </Carousel>
+                  </div>
+                )}
+              </div>
+              <div className="flex gap-1">
+                <MessageCircle onClick={() => push(`/comment/${post._id}`)} />
                 <div onClick={() => postLike(post._id)}>
                   <div className="flex">
                     {post.likes.includes(myId!) ? (
@@ -135,15 +137,18 @@ export default function Home() {
                     ) : (
                       <Heart />
                     )}
-                    <div>{post.likes.length}</div>
                   </div>
                 </div>
               </div>
-              <div>{post.caption}</div>
+              <div>{post.likes.length} likes</div>
+              <div className="flex gap-[5px]">
+                <div className="font-bold">{post.userId.userName}</div>
+                <div>{post.caption}</div>
+              </div>
             </div>
           );
         })}
-        <div className="fixed  bottom-0  flex justify-around w-full bg-white pt-2 pb-2">
+        <div className="fixed  bottom-0  flex justify-around w-full bg-white pt-2 pb-2 border-t-1">
           <HouseIcon onClick={() => push("/")} />
           <SearchIcon onClick={() => push("/search")} />
           <SquarePlus onClick={() => push("/decision")} />

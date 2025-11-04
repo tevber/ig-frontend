@@ -8,6 +8,7 @@ import { toast } from "sonner";
 import { useEffect } from "react";
 import { jwtDecode } from "jwt-decode";
 import { decodedTokenType, useUser } from "@/providers/AuthProvider";
+import { link } from "fs";
 
 type UserType = {
   email: string;
@@ -63,25 +64,42 @@ export default function Page() {
 
   return (
     <div className="flex justify-center flex-col gap-[10px] pt-5">
-      <div className="flex justify-center">
+      <div className="flex justify-center pt-20">
         <IG_LOGO />
       </div>
-      <div className=" flex flex-col gap-[10px] pt-50">
-        <Input
-          placeholder="email"
-          className="flex justify-center"
-          name="email"
-          onChange={handleLoginValues}
-        ></Input>
-        <Input
-          placeholder="password"
-          name="password"
-          onChange={handleLoginValues}
-        ></Input>
-        <Button onClick={handleLogin}>login</Button>
-        <Button onClick={() => push("/sign-up")}>
-          dont have an account? make one
-        </Button>
+      <div className=" flex flex-col gap-[10px] pt-20 justify-center">
+        <div className="w-100 flex flex-col pl-8 gap-[5px]">
+          <Input
+            placeholder="email"
+            className=""
+            name="email"
+            onChange={handleLoginValues}
+          ></Input>
+          <Input
+            placeholder="password"
+            className=""
+            name="password"
+            onChange={handleLoginValues}
+          ></Input>
+          <Button onClick={handleLogin} className="bg-blue-400">
+            login
+          </Button>
+        </div>
+        <div className="flex justify-center">
+          <div className="w-40 border-1 h-[1px] mt-3 mr-2"></div>
+          <div>OR</div>
+          <div className="w-40 border-1 h-[1px] mt-3 ml-2"></div>
+        </div>
+        <div className="flex justify-center">
+          <div className="mt-1.5">dont have an account?</div>
+          <Button
+            onClick={() => push("/sign-up")}
+            variant="link"
+            className="text-blue-500 underline underline-offset-0"
+          >
+            make one
+          </Button>
+        </div>
       </div>
     </div>
   );

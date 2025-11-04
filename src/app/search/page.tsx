@@ -7,6 +7,7 @@ import { Input } from "@/components/ui/input";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 import { HouseIcon, SearchIcon, SquarePlus, UserCircle } from "lucide-react";
+import { Card } from "@/components/ui/card";
 
 type UserType = {
   _id: string;
@@ -65,27 +66,26 @@ const Page = () => {
       <div className="pt-15 gap-5">
         {users
           ?.filter((userInfo) => {
-            return userInfo.userName.toLowerCase() === inputValue.toLowerCase();
+            return userInfo.userName.includes(inputValue.toLowerCase());
           })
           .map((userInfo, index) => {
             return (
               <div key={index}>
-                <div
-                  className="flex"
-                  onClick={() => push(`/profile/${userInfo?._id}`)}
-                >
-                  <Avatar>
-                    <AvatarImage src={userInfo.profilePic || undefined} />
-                    <AvatarFallback>
-                      {userInfo.userName.charAt(0)}
-                    </AvatarFallback>
-                  </Avatar>
-                  <div className="pt-5">{userInfo.userName}</div>
+                <Card onClick={() => push(`/profile/${userInfo?._id}`)}>
+                  <div className="flex">
+                    <Avatar className="h-10 w-10">
+                      <AvatarImage src={userInfo.profilePic || undefined} />
+                      <AvatarFallback>
+                        {userInfo.userName.charAt(0)}
+                      </AvatarFallback>
+                    </Avatar>
+                    <div className="pt-1.5">{userInfo.userName}</div>
 
-                  <div className="text-gray-500 pl-45 pt-5">
-                    {userInfo.email}
+                    <div className="text-gray-500 pl-45 pt-1.5">
+                      {userInfo.email}
+                    </div>
                   </div>
-                </div>
+                </Card>
               </div>
             );
           })}

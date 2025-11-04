@@ -46,14 +46,14 @@ const Page = () => {
         </div>
       </div>
       <div className="pt-10">
-        <div className="flex gap-5">
-          <Avatar>
+        <div className="flex gap-5 flex-row">
+          <Avatar className="">
             <AvatarImage src={user?.profilePic || undefined} />
             <AvatarFallback>{user?.userName.charAt(0)}</AvatarFallback>
-            <Button onClick={() => push("/profile/edit")} className="mt-10">
-              edit
-            </Button>
           </Avatar>
+          <Button onClick={() => push("/profile/edit")} className="mt-10">
+            edit
+          </Button>
         </div>
         <div>{user?.bio}</div>
         <div className="flex justify-around border-b-1">

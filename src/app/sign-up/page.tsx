@@ -7,6 +7,7 @@ import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import { jwtDecode } from "jwt-decode";
 import { decodedTokenType, useUser } from "@/providers/AuthProvider";
+import { IG_LOGO } from "@/icons/ig-logo";
 
 type UserType = {
   userName: string;
@@ -94,37 +95,54 @@ const Page = () => {
   return (
     <div className="gap-[10px]">
       <div className="pt-30">
-        <div className="pt-1">
-          <Input
-            placeholder="userName"
-            name="userName"
-            onChange={handleUserValues}
-          ></Input>
+        <div className="flex justify-center mb-10">
+          <IG_LOGO />
         </div>
-        <div className="pt-1">
-          <Input
-            placeholder="fullName"
-            name="fullName"
-            onChange={handleUserValues}
-          ></Input>
+        <div className="flex justify-center mb-10 w-100 flex-wrap text-gray-500 font-bold">
+          <div>sign up to see photos and videos of your friends</div>
         </div>
-        <div className="pt-1">
-          <Input
-            placeholder="email"
-            name="email"
-            onChange={handleUserValues}
-          ></Input>
+        <div className="flex justify-center flex-col w-85 ml-10">
+          <div className="pt-1">
+            <Input
+              placeholder="userName"
+              name="userName"
+              onChange={handleUserValues}
+            ></Input>
+          </div>
+          <div className="pt-1">
+            <Input
+              placeholder="fullName"
+              name="fullName"
+              onChange={handleUserValues}
+            ></Input>
+          </div>
+          <div className="pt-1">
+            <Input
+              placeholder="email"
+              name="email"
+              onChange={handleUserValues}
+            ></Input>
+          </div>
+          <div className="pt-1">
+            <Input
+              placeholder="password"
+              name="password"
+              onChange={handleUserValues}
+            ></Input>
+          </div>
+
+          <Button onClick={addUserValues} className="mt-5 w-full bg-blue-400">
+            submit
+          </Button>
+          <div className="flex ml-27 mt-10">Have an account?</div>
+          <Button
+            onClick={() => push("/login")}
+            variant="link"
+            className="text-blue-500 underline underline-offset-0 text-2xl"
+          >
+            log in
+          </Button>
         </div>
-        <div className="pt-1">
-          <Input
-            placeholder="password"
-            name="password"
-            onChange={handleUserValues}
-          ></Input>
-        </div>
-        <Button onClick={addUserValues} className="mt-1 w-full">
-          submit
-        </Button>
         <Toaster />
       </div>
     </div>

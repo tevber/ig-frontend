@@ -172,46 +172,48 @@ export default function Home() {
                   </Button>
                 </DialogContent>
               </Dialog>
-
-              {post.images.length === 1 ? (
-                <img src={post.images[0]} />
-              ) : (
-                <div className="flex justify-center pl-4.5">
-                  <Carousel className="w-110">
-                    <CarouselContent className="w-110">
-                      {post.images.map((url, index) => {
-                        return (
-                          <CarouselItem
-                            className="flex aspect-square items-center justify-center p-6 flex-col w-110 "
-                            key={index}
-                          >
-                            <img src={url}></img>
-                            <div className="text-1xl font-semibold flex ">
-                              {index + 1} / {post.images.length}
-                            </div>
-                          </CarouselItem>
-                        );
-                      })}
-                    </CarouselContent>
-                  </Carousel>
-                </div>
-              )}
-              <div className="flex">
+              <div className="flex justify-center">
+                {post.images.length === 1 ? (
+                  <img src={post.images[0]} />
+                ) : (
+                  <div className="flex justify-center pl-4.5">
+                    <Carousel className="w-110">
+                      <CarouselContent className="w-110">
+                        {post.images.map((url, index) => {
+                          return (
+                            <CarouselItem
+                              className="flex aspect-square items-center justify-center p-6 flex-col w-110 "
+                              key={index}
+                            >
+                              <img src={url}></img>
+                              <div className="text-1xl font-semibold flex ">
+                                {index + 1} / {post.images.length}
+                              </div>
+                            </CarouselItem>
+                          );
+                        })}
+                      </CarouselContent>
+                    </Carousel>
+                  </div>
+                )}
+              </div>
+              <div className="flex gap-1">
                 <MessageCircle onClick={() => push(`/comment/${post._id}`)} />
                 <div onClick={() => postLike(post._id)}>
-                  <div onClick={() => getPosts()}>
-                    <div className="flex">
-                      {post.likes.includes(myId!) ? (
-                        <Heart color="red" fill="red" />
-                      ) : (
-                        <Heart />
-                      )}
-                    </div>
-                    <div>{post.likes.length}</div>
+                  <div className="flex">
+                    {post.likes.includes(myId!) ? (
+                      <Heart color="red" fill="red" />
+                    ) : (
+                      <Heart />
+                    )}
                   </div>
                 </div>
               </div>
-              <div>{post.caption}</div>
+              <div>{post.likes.length} likes</div>
+              <div className="flex gap-[5px]">
+                <div className="font-bold">{post.userId.userName}</div>
+                <div>{post.caption}</div>
+              </div>
             </div>
           );
         })}
