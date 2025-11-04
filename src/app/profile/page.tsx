@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useUser } from "@/providers/AuthProvider";
 import { HouseIcon, SearchIcon, SquarePlus, User } from "lucide-react";
-import { AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 type PostType = {
   userId: string;
@@ -47,11 +47,13 @@ const Page = () => {
       </div>
       <div className="pt-10">
         <div className="flex gap-5">
-          <AvatarImage src={user?.profilePic || undefined} />
-          <AvatarFallback>{user?.userName.charAt(0)}</AvatarFallback>
-          <Button onClick={() => push("/profile/edit")} className="mt-10">
-            edit
-          </Button>
+          <Avatar>
+            <AvatarImage src={user?.profilePic || undefined} />
+            <AvatarFallback>{user?.userName.charAt(0)}</AvatarFallback>
+            <Button onClick={() => push("/profile/edit")} className="mt-10">
+              edit
+            </Button>
+          </Avatar>
         </div>
         <div>{user?.bio}</div>
         <div className="flex justify-around border-b-1">
