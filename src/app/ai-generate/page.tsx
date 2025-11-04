@@ -44,7 +44,7 @@ const Page = () => {
           inputs: inputValues,
           parameters: {
             negative_prompt:
-              "blurry, bad quality, distorted, body proportions are not correct, too accurate",
+              "blurry, bad quality, distorted, proportions are not correct, ugly",
             num_inference_steps: 20,
             guidance_scale: 7.5,
           },
