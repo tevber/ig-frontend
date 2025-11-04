@@ -32,7 +32,7 @@ const Page = () => {
 
     const response = await fetch("/api/generate", {
       method: "POST",
-      body: JSON.stringify({ prompt }),
+      body: JSON.stringify({ prompt: inputValues }),
     });
 
     if (!response.ok) throw new Error("Failed to generate");
