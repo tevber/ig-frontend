@@ -8,7 +8,6 @@ import { toast } from "sonner";
 import { useEffect } from "react";
 import { jwtDecode } from "jwt-decode";
 import { decodedTokenType, useUser } from "@/providers/AuthProvider";
-import { link } from "fs";
 
 type UserType = {
   email: string;
@@ -16,7 +15,7 @@ type UserType = {
 };
 
 export default function Page() {
-  const { user, setUser, token, setToken } = useUser();
+  const { user, setUser, setToken } = useUser();
   const [login, setLogin] = useState<UserType>({
     email: "",
     password: "",

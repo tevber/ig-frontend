@@ -26,18 +26,6 @@ const Page = () => {
     setFile(selectedFile);
   };
 
-  const uploadImage = async () => {
-    if (!file) return;
-    const uploaded = await upload(file.name, file, {
-      access: "public",
-      handleUploadUrl: "/api/upload",
-    });
-
-    setImageUrl((prev) => {
-      return [...prev, uploaded.url];
-    });
-  };
-
   const createPost = async () => {
     if (!file) return;
     const uploaded = await upload(file.name, file, {

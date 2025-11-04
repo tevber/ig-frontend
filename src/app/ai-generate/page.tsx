@@ -19,7 +19,6 @@ const Page = () => {
   const { token, user } = useUser();
   const { push } = useRouter();
   const [captionValues, setCaptionValues] = useState("");
-  const HF_API_KEY = process.env.HF_API_KEY;
 
   const handleInputValues = (event: ChangeEvent<HTMLInputElement>) => {
     const { value } = event.target;

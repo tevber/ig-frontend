@@ -70,7 +70,7 @@ const Page = () => {
           })
           .map((userInfo, index) => {
             return (
-              <div key={index}>
+              <div key={index} className="mt-5">
                 <Card onClick={() => push(`/profile/${userInfo?._id}`)}>
                   <div className="flex">
                     <Avatar className="h-10 w-10">

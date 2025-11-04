@@ -16,22 +16,8 @@ type UserType = {
   password: string;
 };
 
-type Users = {
-  _id: string;
-  userName: string;
-  fullName: string;
-  email: string;
-  password: string;
-  followers: object;
-  following: object;
-  bio: string;
-  profilePic: string;
-  createdAt: Date;
-  UpdatedAt: Date;
-};
-
 const Page = () => {
-  const { user, setUser, token, setToken } = useUser();
+  const { setUser, setToken } = useUser();
   const [userInfo, setUserInfo] = useState<UserType>({
     userName: "",
     fullName: "",
