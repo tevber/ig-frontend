@@ -13,7 +13,7 @@ export async function POST(req: Request) {
       {
         method: "POST",
         headers: {
-          Authorization: `Bearer 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`,
+          Authorization: `Bearer ${process.env.HF_API_KEY}`,
           "Content-Type": "application/json",
           "X-Wait-For-Model": "true",
         },
